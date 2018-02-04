@@ -1,91 +1,87 @@
 <template>
   <v-app>
-    <v-navigation-drawer
-      persistent
-      :mini-variant="miniVariant"
-      :clipped="clipped"
-      v-model="drawer"
-      enable-resize-watcher
-      fixed
-      app
-    >
-      <v-list>
-        <v-list-tile
-          value="true"
-          v-for="(item, i) in items"
-          :key="i"
-        >
-          <v-list-tile-action>
-            <v-icon v-html="item.icon"></v-icon>
-          </v-list-tile-action>
-          <v-list-tile-content>
-            <v-list-tile-title v-text="item.title"></v-list-tile-title>
-          </v-list-tile-content>
-        </v-list-tile>
-      </v-list>
-    </v-navigation-drawer>
-    <v-toolbar
-      app
-      :clipped-left="clipped"
-    >
-      <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
-      <v-btn icon @click.stop="miniVariant = !miniVariant">
-        <v-icon v-html="miniVariant ? 'chevron_right' : 'chevron_left'"></v-icon>
-      </v-btn>
-      <v-btn icon @click.stop="clipped = !clipped">
-        <v-icon>web</v-icon>
-      </v-btn>
-      <v-btn icon @click.stop="fixed = !fixed">
-        <v-icon>remove</v-icon>
-      </v-btn>
-      <v-toolbar-title v-text="title"></v-toolbar-title>
+    <!--First Toolbar-->
+    <v-toolbar class="orange lighten-4" style="height: 8%">
+
+      <v-toolbar-side-icon @click.native.stop="sideNav = !sideNav" class="hidden-lg-and-up"></v-toolbar-side-icon>
+
+      <v-avatar style="margin: 30px 10px 24px 20px">
+        <img src="@/assets/logo.png" alt="Fly Mashriq" class="mb-2">
+      </v-avatar>
+
+      <v-toolbar-title>Fly Mashriq</v-toolbar-title>
       <v-spacer></v-spacer>
-      <v-btn icon @click.stop="rightDrawer = !rightDrawer">
-        <v-icon>menu</v-icon>
+      <v-btn icon class="hidden-xs-only hidden-sm-only">
+        <v-icon>search</v-icon>
       </v-btn>
+
+      <div>
+        <v-btn dark >Log In</v-btn>
+      </div>
+
     </v-toolbar>
-    <v-content>
-      <router-view/>
-    </v-content>
-    <v-navigation-drawer
-      temporary
-      :right="right"
-      v-model="rightDrawer"
-      fixed
-      app
-    >
-      <v-list>
-        <v-list-tile @click="right = !right">
+
+    <!--Second Toolbar-->
+
+      <v-toolbar-items style="height: 5%" class="hidden-xs-only hidden-sm-only" >
+
+        <v-list-tile v-for="item in menuItems" :key="item.title" style="list-style: none">
+
           <v-list-tile-action>
-            <v-icon>compare_arrows</v-icon>
+            <v-icon>{{ item.icons }}</v-icon>
           </v-list-tile-action>
-          <v-list-tile-title>Switch drawer (click me)</v-list-tile-title>
+
+          <v-list-tile-content>{{ item.title }}</v-list-tile-content>
+        </v-list-tile>
+
+      </v-toolbar-items>
+
+    <!--Side Navigation open in small devices-->
+
+    <v-navigation-drawer  fixed v-model="sideNav">
+      <v-list>
+        <v-avatar style="margin: 30px 10px 24px 20px">
+          <img src="@/assets/logo.png" alt="Fly Mashriq" class="mb-2">
+        </v-avatar>
+          Fly Mashriq
+
+        <v-list-tile v-for="item in menuItems" :key="item.title" style="list-style: none">
+
+          <v-list-tile-action>
+            <v-icon>{{ item.icons }}</v-icon>
+          </v-list-tile-action>
+
+          <v-list-tile-content>{{ item.title }}</v-list-tile-content>
+
         </v-list-tile>
       </v-list>
     </v-navigation-drawer>
-    <v-footer :fixed="fixed" app>
-      <span>&copy; 2017</span>
+
+    <router-view></router-view>
+
+    <v-footer color="orange lighten-1">
+      <span class="white--text">&copy; 2018</span>
     </v-footer>
+
   </v-app>
+
+
+
 </template>
 
 <script>
-export default {
+export default{
   data () {
     return {
-      clipped: false,
-      drawer: true,
-      fixed: false,
-      items: [{
-        icon: 'bubble_chart',
-        title: 'Inspire'
-      }],
-      miniVariant: false,
-      right: true,
-      rightDrawer: false,
-      title: 'Vuetify.js'
+      sideNav: false,
+      menuItems: [
+        {icons: 'supervisor_account', title: 'Air Operator'},
+        {icons: 'room', title: 'Aircraft'},
+        {icons: 'person', title: 'Empty Legs'},
+        {icons: 'face', title: 'Fixed Price'},
+        {icons: 'lock_open', title: 'Quote Request'}
+      ]
     }
-  },
-  name: 'App'
+  }
 }
 </script>
