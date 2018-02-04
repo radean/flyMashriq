@@ -9,7 +9,7 @@
         <img src="@/assets/logo.png" alt="Fly Mashriq" class="mb-2">
       </v-avatar>
 
-      <v-toolbar-title>Fly Mashriq</v-toolbar-title>
+      <v-toolbar-title>Fly Mashrique</v-toolbar-title>
       <v-spacer></v-spacer>
       <v-btn icon class="hidden-xs-only hidden-sm-only">
         <v-icon>search</v-icon>
